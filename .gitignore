@@ -1,0 +1,8 @@
+# Raw student data exports — never commit (contains student PII)
+data/
+
+# Jupyter checkpoint caches
+**/.ipynb_checkpoints/
+
+# OS cruft
+.DS_Store
