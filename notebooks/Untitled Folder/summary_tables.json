@@ -1,0 +1,121 @@
+{
+  "n_total_responses": 1749,
+  "satisfaction_with_match": {
+    "valid_n": 1680,
+    "excluded_blank_n": 0,
+    "mean_score_0_100": 81.1,
+    "pct_satisfied_top2box": 79.0,
+    "pct_dissatisfied_bottom2box": 7.3,
+    "distribution_pct": {
+      "Very dissatisfied": 1.8,
+      "Somewhat dissatisfied": 5.5,
+      "Neutral": 13.7,
+      "Somewhat satisfied": 26.9,
+      "Very satisfied": 52.1
+    },
+    "distribution_counts": {
+      "Very dissatisfied": 30,
+      "Somewhat dissatisfied": 92,
+      "Neutral": 230,
+      "Somewhat satisfied": 452,
+      "Very satisfied": 876
+    }
+  },
+  "satisfaction_with_process_overall": {
+    "valid_n": 1680,
+    "excluded_blank_n": 0,
+    "pct_satisfied_top2box": 76.0,
+    "distribution_pct": {
+      "Very dissatisfied": 2.2,
+      "Somewhat dissatisfied": 5.4,
+      "Neutral": 16.4,
+      "Somewhat satisfied": 29.6,
+      "Very satisfied": 46.4
+    },
+    "distribution_counts": {
+      "Very dissatisfied": 37,
+      "Somewhat dissatisfied": 91,
+      "Neutral": 276,
+      "Somewhat satisfied": 497,
+      "Very satisfied": 779
+    }
+  },
+  "hub_support_and_prep": {
+    "feel_supported_by_hub": {
+      "valid_n": 1749,
+      "pct_agree_top2box": 85.5,
+      "distribution_pct": {
+        "Strongly Disagree": 0.7,
+        "Somewhat Disagree": 3.0,
+        "Neither Agree nor Disagree": 10.8,
+        "Somewhat Agree": 35.9,
+        "Strongly Agree": 49.6
+      }
+    },
+    "workshop_helpfulness": {
+      "valid_n": 1586,
+      "excluded_non_substantive_n": 94,
+      "pct_helpful_top2box": 95.8,
+      "distribution_pct": {
+        "Not helpful": 4.2,
+        "Somewhat helpful": 43.9,
+        "Very helpful": 51.9
+      }
+    },
+    "interview_tips_helpfulness": {
+      "valid_n": 1534,
+      "excluded_non_substantive_n": 146,
+      "pct_helpful_top2box": 96.4,
+      "distribution_pct": {
+        "Not helpful": 3.6,
+        "Somewhat helpful": 41.2,
+        "Very helpful": 55.2
+      }
+    },
+    "instructions_clarity": {
+      "valid_n": 1672,
+      "excluded_non_substantive_n": 8,
+      "pct_clear_top2box": 97.7,
+      "distribution_pct": {
+        "Not clear": 2.3,
+        "Somewhat clear": 31.2,
+        "Very clear": 66.5
+      }
+    }
+  },
+  "workplace_readiness_skills_1to5": {
+    "Professional communication": 4.54,
+    "Time management": 4.49,
+    "Asking for help/ clarification": 4.44,
+    "Workplace tech /tools": 4.23,
+    "Understanding expectations": 4.51,
+    "Working with supervisors": 4.49,
+    "valid_n": 1749
+  },
+  "career_outlook": {
+    "believes_internship_helps_get_job_pct": {
+      "No": 1.1,
+      "Unsure": 19.2,
+      "Yes": 79.6
+    },
+    "pct_agree_top2box_by_item": {
+      "Feel prepared to\nsearch/apply for jobs": 63.5,
+      "Optimistic about finding\na job within a year": 55.3,
+      "Confident performing\nin a job interview": 58.0
+    }
+  },
+  "prior_application_experience": {
+    "valid_n": 1749,
+    "pct_with_zero_prior_applications": 41.5,
+    "median_prior_applications": 1.0,
+    "mean_prior_applications": 4.79
+  },
+  "seeking_permanent_role": {
+    "valid_n": 1749,
+    "distribution_pct": {
+      "No": 6.3,
+      "Unsure": 43.6,
+      "Yes": 50.0
+    }
+  }
+}
