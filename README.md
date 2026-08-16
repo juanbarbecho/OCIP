@@ -3,11 +3,10 @@ Python notebooks for data tasks from my time at the CUNY Office of Career and In
 
 ## Layout
 
-`notebooks/` is organized into three projects, grouped by what they actually read/write, not
-by when they were added:
+`notebooks/` is organized into three projects
 
 - **`notebooks/matching/`** — live seasonal match/placement analysis for the current Career
-  Launch (CL26) and Spring Forward (SF26) cycles: match outcomes, rematches, application data
+  Launch (CL26) and previous Spring Forward (SF26) cycles: match outcomes, rematches, application data
   validation.
 - **`notebooks/PreP/`** — pre-program survey stats, self-contained (own data file, own charts).
 - **`notebooks/shoutoutdeckfigures/`** — payroll/stipend figures for stakeholder decks,
@@ -23,8 +22,7 @@ by when they were added:
 
 Other top-level folders:
 
-- `data/` — raw exports and pipeline-derived CSVs the notebooks read from and write to
-  (InPlace/Airtable/BLS). **Gitignored** — these contain student-identifying data and must
+- `data/` — raw exports and pipeline-derived CSVs the notebooks read from. **Gitignored** — these contain student-identifying data and must
   never be committed. Populate this folder locally with your own exports before running a
   notebook. See `data/README.md` for the file lineage.
 - `outputs/` — generated reports meant to be shared (e.g. the matching outcomes write-up, the
