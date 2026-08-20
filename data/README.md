@@ -19,7 +19,8 @@ to rebuild — see notes below).
 ```
 AllRoles_clean.csv                          <- RAW, root of everything below.
   |                                            Not produced by any notebook in this repo —
-  |                                            currently MISSING from this checkout. Every
+  |                                            currently MISSING from this checkout. IMPORTANT:  
+  |                                            can be found on InPlace Query: *recall name* made by JA Every
   |                                            notebook below depends on it, directly or
   |                                            through a derived file. Re-locate/re-export
   |                                            this before running the pipeline fresh.
