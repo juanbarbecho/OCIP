@@ -3,7 +3,7 @@ Python notebooks for data tasks from my time at the CUNY Office of Career and In
 
 ## Layout
 
-`notebooks/` is organized into three projects
+`notebooks/` is organized into (currently) four projects
 
 - **`notebooks/matching/`** — live seasonal match/placement analysis for the current Career
   Launch (CL26) and previous Spring Forward (SF26) cycles: match outcomes, rematches, application data
