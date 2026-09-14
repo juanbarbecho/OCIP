@@ -1,0 +1,528 @@
+<!doctype html>
+<title>OCIP Repository Map</title>
+<style>
+  :root{
+    --ink:#1c2129;
+    --ink-soft:#4b5361;
+    --paper:#f5f2ea;
+    --paper-raised:#ffffff;
+    --line:rgba(28,33,41,0.14);
+    --accent:#2d6a6a;
+    --accent-soft:#e2ece9;
+    --active:#3c7a4e;
+    --active-soft:#e3efe4;
+    --legacy:#a8781f;
+    --legacy-soft:#f4ecd9;
+    --orphan:#a8453f;
+    --orphan-soft:#f6e4e2;
+    --mermaid-bg:#fbfaf6;
+    --font-display:'Iowan Old Style','Palatino Linotype',Georgia,'Times New Roman',serif;
+    --font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --font-mono:ui-monospace,'SF Mono','Cascadia Mono','Roboto Mono',Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ink:#e9e5d8;
+      --ink-soft:#a9a89d;
+      --paper:#14171a;
+      --paper-raised:#1c2024;
+      --line:rgba(233,229,216,0.14);
+      --accent:#7ec4bc;
+      --accent-soft:#1f2f2d;
+      --active:#7bc394;
+      --active-soft:#1c2b20;
+      --legacy:#e0b45c;
+      --legacy-soft:#2c2617;
+      --orphan:#e08a83;
+      --orphan-soft:#2e1e1c;
+      --mermaid-bg:#f4f1e8;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e9e5d8; --ink-soft:#a9a89d; --paper:#14171a; --paper-raised:#1c2024;
+    --line:rgba(233,229,216,0.14); --accent:#7ec4bc; --accent-soft:#1f2f2d;
+    --active:#7bc394; --active-soft:#1c2b20; --legacy:#e0b45c; --legacy-soft:#2c2617;
+    --orphan:#e08a83; --orphan-soft:#2e1e1c; --mermaid-bg:#f4f1e8;
+  }
+  :root[data-theme="light"]{
+    --ink:#1c2129; --ink-soft:#4b5361; --paper:#f5f2ea; --paper-raised:#ffffff;
+    --line:rgba(28,33,41,0.14); --accent:#2d6a6a; --accent-soft:#e2ece9;
+    --active:#3c7a4e; --active-soft:#e3efe4; --legacy:#a8781f; --legacy-soft:#f4ecd9;
+    --orphan:#a8453f; --orphan-soft:#f6e4e2; --mermaid-bg:#fbfaf6;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--font-body); line-height:1.55;
+    font-size:16px;
+  }
+  .page{max-width:920px; margin:0 auto; padding:56px 24px 96px;}
+
+  .eyebrow{
+    font-family:var(--font-mono); font-size:12.5px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--accent); font-weight:600;
+  }
+  h1{
+    font-family:var(--font-display); font-weight:600; font-size:2.55rem;
+    margin:.35em 0 .2em; text-wrap:balance; letter-spacing:-.01em;
+  }
+  .dek{
+    font-size:1.08rem; color:var(--ink-soft); max-width:62ch; margin:0 0 28px;
+  }
+  h2{
+    font-family:var(--font-display); font-size:1.55rem; font-weight:600;
+    margin:2.6em 0 .3em; padding-top:.6em; border-top:1px solid var(--line);
+  }
+  h2 .num{color:var(--accent); font-family:var(--font-mono); font-size:.65em; margin-right:.5em; font-weight:600;}
+  h3{font-family:var(--font-display); font-size:1.15rem; margin:1.6em 0 .5em; font-weight:600;}
+  p{max-width:70ch;}
+  code, .mono{font-family:var(--font-mono); font-size:.88em;}
+
+  .stats{
+    display:flex; gap:1px; background:var(--line); border:1px solid var(--line);
+    border-radius:10px; overflow:hidden; margin:20px 0 8px; flex-wrap:wrap;
+  }
+  .stat{
+    flex:1 1 140px; background:var(--paper-raised); padding:14px 16px;
+  }
+  .stat b{
+    display:block; font-family:var(--font-display); font-size:1.6rem; font-variant-numeric:tabular-nums;
+  }
+  .stat span{font-size:.78rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.05em;}
+
+  .flag{
+    display:flex; gap:14px; align-items:flex-start;
+    background:var(--orphan-soft); border:1px solid color-mix(in srgb, var(--orphan) 45%, transparent);
+    border-radius:10px; padding:18px 20px; margin:26px 0;
+  }
+  .flag .mark{
+    font-family:var(--font-display); font-weight:700; font-size:1.4rem; color:var(--orphan);
+    line-height:1;
+  }
+  .flag h4{margin:0 0 .3em; font-family:var(--font-body); font-weight:700; color:var(--orphan); font-size:.98rem; text-transform:uppercase; letter-spacing:.03em;}
+  .flag p{margin:.3em 0; font-size:.96rem;}
+  .flag code{background:rgba(0,0,0,.06); padding:.05em .35em; border-radius:4px;}
+
+  .chip{
+    display:inline-block; font-family:var(--font-mono); font-size:.72rem; font-weight:600;
+    padding:2px 8px; border-radius:20px; letter-spacing:.02em; white-space:nowrap;
+  }
+  .chip.active{background:var(--active-soft); color:var(--active);}
+  .chip.legacy{background:var(--legacy-soft); color:var(--legacy);}
+  .chip.orphan{background:var(--orphan-soft); color:var(--orphan);}
+
+  .diagram-card{
+    background:var(--mermaid-bg); border:1px solid var(--line); border-radius:12px;
+    padding:18px; margin:18px 0 28px; overflow-x:auto;
+    color:#1c2129;
+  }
+  .diagram-card .mermaid{min-width:640px;}
+
+  .table-wrap{overflow-x:auto; margin:16px 0 32px; border:1px solid var(--line); border-radius:10px;}
+  table{border-collapse:collapse; width:100%; min-width:760px; font-size:.88rem;}
+  thead th{
+    text-align:left; font-family:var(--font-mono); font-size:.72rem; text-transform:uppercase;
+    letter-spacing:.04em; color:var(--ink-soft); background:var(--paper-raised);
+    padding:10px 14px; border-bottom:1px solid var(--line); position:sticky; top:0;
+  }
+  tbody td{padding:10px 14px; border-bottom:1px solid var(--line); vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:nth-child(even){background:color-mix(in srgb, var(--paper-raised) 55%, transparent);}
+  td.path{font-family:var(--font-mono); font-size:.82rem; white-space:nowrap;}
+  td.date{font-family:var(--font-mono); font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink-soft);}
+
+  ol.punchlist{padding-left:0; list-style:none; counter-reset:item; margin:18px 0 32px;}
+  ol.punchlist li{
+    counter-increment:item; position:relative; padding:12px 0 12px 44px;
+    border-bottom:1px solid var(--line);
+  }
+  ol.punchlist li:last-child{border-bottom:none;}
+  ol.punchlist li::before{
+    content:counter(item); position:absolute; left:0; top:12px;
+    font-family:var(--font-mono); font-size:.78rem; font-weight:700; color:var(--accent);
+    background:var(--accent-soft); width:26px; height:26px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  ol.punchlist .sev{font-family:var(--font-mono); font-size:.68rem; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); display:block; margin-bottom:2px;}
+  ol.punchlist b{font-weight:700;}
+
+  footer{margin-top:64px; padding-top:20px; border-top:1px solid var(--line); font-size:.82rem; color:var(--ink-soft);}
+</style>
+
+<div class="page">
+
+  <div class="eyebrow">OCIP repository — structure audit</div>
+  <h1>Two pipelines living in one repo</h1>
+  <p class="dek">
+    16 notebooks split across a live seasonal-operations track (matching &amp; placement
+    for the 2026 Career Launch / Spring Forward cycles) and a historical
+    occupation-classification pipeline (2022–2026, NIOCCS/QCEW). Mapped from git history
+    (2026-07-14 → 2026-08-13) and each notebook's actual read/write paths.
+  </p>
+
+  <div class="stats">
+    <div class="stat"><b>16</b><span>Notebooks</span></div>
+    <div class="stat"><b>2</b><span>Workstreams</span></div>
+    <div class="stat"><b>3</b><span>PII files in git</span></div>
+    <div class="stat"><b>4</b><span>Missing source files</span></div>
+  </div>
+
+  <div class="flag">
+    <div class="mark">!</div>
+    <div>
+      <h4>Student PII is committed to git, right now</h4>
+      <p>
+        <code>notebooks/PreP/Pre Program Survey Data-Career Launch.csv</code> (1,863 rows —
+        names, CUNY &amp; personal emails, free-text responses) and two payroll exports under
+        <code>notebooks/shoutoutdeckfigures/</code> (EMPLIDs + dollar amounts paid, ~13k rows
+        combined) all sit <em>outside</em> <code>data/</code>, so the repo's own gitignore rule
+        doesn't cover them — they were committed in <code>1bdd344</code> and <code>79d0fc4</code>.
+      </p>
+      <p>
+        This is exactly the exposure the README's <code>data/</code> rule exists to prevent.
+        Deleting the files now won't remove them from history — that needs a deliberate
+        decision (history rewrite + force-push, or accept the exposure if this stays a private
+        single-collaborator repo). Flagging this first because it's the one item here that
+        isn't just "cleanup."
+      </p>
+    </div>
+  </div>
+
+  <h3>How to read "status" below</h3>
+  <p>
+    Every notebook here was touched within the last 31 days — recency alone doesn't separate
+    live work from dead work in this repo. What matters is whether a notebook's output was
+    later folded into a newer one (<span class="chip legacy">legacy</span>), whether its input
+    file no longer exists on disk (<span class="chip orphan">orphaned input</span>), or whether
+    it's still the thing you'd actually re-run today (<span class="chip active">active</span>).
+  </p>
+
+  <h2><span class="num">01</span>Live season ops — CL26 / SF26 2026</h2>
+  <p>
+    Reads directly from InPlace/Airtable exports sitting in <code>data/</code>. Answers
+    "what happened this cycle" — match dedup rules, agency rankings, rematch volume,
+    pre-program sentiment, payroll totals. Two of its five inputs no longer exist in the
+    checkout (they were presumably one-off local exports), and one notebook is misnamed
+    for the program it actually analyzes.
+  </p>
+
+  <div class="diagram-card">
+    <pre class="mermaid">
+flowchart TD
+  E1["CareerLaunch2026PlacementHistory.csv"]
+  E2["CL26StudentOpportunityApplications.csv (+ '(2)' copy)"]
+  E3["Rematch request CSV"]
+  E4["PlacementHistory.xlsx / SF26StudentOpportunityApplications.xlsx — MISSING"]
+  E5["Opportunityapplicationhistorytest.csv — MISSING"]
+  E6["Pre Program Survey CSV"]
+  E7["2 Payroll CSVs"]
+
+  VAL["validate_application_data.ipynb"]
+  CCL26["ccl26_matchoutcomes.ipynb"]
+  REM["rematches.ipynb"]
+  SF26["ccl25_match_outcomes.ipynb — mislabeled, really SF26"]
+  QQ["quantumqueryMN.ipynb"]
+  PREP["PreP/PrePstats.ipynb"]
+  SHOUT["shoutoutdeckfigures/shoutoutdeck.ipynb"]
+
+  E1 --> VAL
+  E2 --> VAL
+  E1 --> CCL26
+  E2 --> CCL26
+  E3 --> REM
+  E4 --> SF26
+  E5 --> QQ
+  E6 --> PREP
+  E7 --> SHOUT
+
+  VAL --> OUT0["console QA only"]
+  CCL26 --> OUT1["console: dedup + top agencies by hub"]
+  SF26 --> OUT2["preference charts + student_map.html — not retained in outputs/"]
+  SF26 --> DOCX["outputs/Matching Outcomes — Spring Forward 2026.docx"]
+  PREP --> OUT3["charts/*.png + summary_tables.json — committed"]
+  SHOUT --> OUT4["stakeholder deck $ / headcount figures"]
+    </pre>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Notebook</th><th>Last touched</th><th>Status</th><th>Reads</th><th>Note</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="path">validate_application_data.ipynb</td>
+          <td class="date">2026-07-14</td>
+          <td><span class="chip legacy">legacy</span></td>
+          <td>PlacementHistory.csv, Applications (2).csv</td>
+          <td>Scoping/dedup logic now duplicated inside <code class="mono">ccl26_matchoutcomes.ipynb</code></td>
+        </tr>
+        <tr>
+          <td class="path">rematches.ipynb</td>
+          <td class="date">2026-07-14</td>
+          <td><span class="chip active">active</span></td>
+          <td>Rematch request CSV</td>
+          <td>Single-purpose, self-contained, input still present</td>
+        </tr>
+        <tr>
+          <td class="path">ccl26_matchoutcomes.ipynb</td>
+          <td class="date">2026-07-22</td>
+          <td><span class="chip active">active</span></td>
+          <td>PlacementHistory.csv, Applications*.csv</td>
+          <td>Current, all-4-hub Career Launch 2026 analysis</td>
+        </tr>
+        <tr>
+          <td class="path">quantumqueryMN.ipynb</td>
+          <td class="date">2026-08-03</td>
+          <td><span class="chip orphan">orphaned input</span></td>
+          <td>Opportunityapplicationhistorytest.csv <em>(missing)</em></td>
+          <td>"test" in the filename + missing source — likely a throwaway ad hoc query</td>
+        </tr>
+        <tr>
+          <td class="path">ccl25_match_outcomes.ipynb</td>
+          <td class="date">2026-07-14</td>
+          <td><span class="chip orphan">misnamed</span></td>
+          <td>PlacementHistory.xlsx, SF26...xlsx <em>(missing)</em></td>
+          <td>Filename says CCL25 — the data it reads is Spring Forward 2026 (SF26)</td>
+        </tr>
+        <tr>
+          <td class="path">PreP/PrePstats.ipynb</td>
+          <td class="date">2026-07-28</td>
+          <td><span class="chip active">active</span></td>
+          <td>Pre Program Survey CSV</td>
+          <td>Complete, self-contained — but see PII flag above</td>
+        </tr>
+        <tr>
+          <td class="path">shoutoutdeckfigures/shoutoutdeck.ipynb</td>
+          <td class="date">2026-08-11</td>
+          <td><span class="chip active">active</span></td>
+          <td>2 payroll CSVs</td>
+          <td>Narrow, self-contained — but see PII flag above</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2><span class="num">02</span>Historical classification pipeline — 2022–2026, all hubs</h2>
+  <p>
+    A longer chain: raw historical postings get cleaned, sent through the CDC's NIOCCS API for
+    NAICS/SOC coding, tagged with BLS education requirements, compared against citywide BLS
+    QCEW employment data, and folded into stakeholder deliverables. Nine notebooks touch this
+    chain. The most recent commit in the whole repo (<code>22d76a4</code>, 2026-08-13) belongs
+    to this workstream — it's where the active work is right now.
+  </p>
+
+  <div class="diagram-card">
+    <pre class="mermaid">
+flowchart TD
+  ROOT["AllRoles_clean.csv — root input, no notebook in this repo builds it"]
+
+  RWD["role_classification/RolesWithDescALL.ipynb"]
+  READY["AllRoles_nioccs_ready.csv"]
+  CODED["AllRoles_nioccs_coded.csv"]
+  TAGEDU["tag_education_requirements.ipynb"]
+  CODEDEDU["AllRoles_nioccs_coded_with_education.csv"]
+
+  ROOT --> RWD --> READY
+  READY -- NIOCCS API --> CODED
+  CODED --> TAGEDU --> CODEDEDU
+
+  CC1["cultural_corp_ingestion/culturalcorps.ipynb — Steps 1-3"]
+  CCREADY["cc_step2_ready_for_nioccs.csv"]
+  CCCODED["cc_step3_coded.csv"]
+  CCMERGE["cultural_corp_ingestion/culturalcorpsmerge.ipynb — Step 4"]
+
+  ROOT --> CC1 --> CCREADY
+  CCREADY -- NIOCCS API --> CCCODED
+  CCREADY --> CCMERGE
+  CCCODED --> CCMERGE
+  CCMERGE -- "merges in, backs up originals" --> READY
+  CCMERGE -- "merges in, backs up originals" --> CODED
+
+  BLS["BLS QCEW API — external"]
+  PUB["public_data_fetch/public.ipynb — cells 0-1"]
+  PUBOLD["public.ipynb — cells 2-5"]
+  CITYWIDE["qcew_nyc_sector_citywide.csv"]
+  LEGACYOUT["comparison / growth CSVs — superseded"]
+
+  BLS --> PUB --> CITYWIDE
+  BLS -.-> PUBOLD -. superseded .-> LEGACYOUT
+
+  WEIGHT["placement_join/placements_analysis.ipynb — add_max_placements_weight"]
+  READY --> WEIGHT
+  CODED --> WEIGHT
+  CODEDEDU --> WEIGHT
+  WEIGHT -- "joins Max Places, backs up both" --> CODED
+  WEIGHT -- "joins Max Places, backs up both" --> CODEDEDU
+
+  GT["placement_join/placements_analysis.ipynb — Ground Truth Analysis"]
+  READY --> GT
+  CODEDEDU --> GT
+  CITYWIDE --> GT
+  GT --> DECK["5 charts + 2 summary tables"]
+
+  BRUH["placement_join/bruh.ipynb — hub composition check"]
+  CODEDEDU --> BRUH --> GATE["go / no-go before naming a deck Finding"]
+
+  EMPNUM["employernums.ipynb"]
+  READY --> EMPNUM --> EMPOUT["repeat-employer stats"]
+
+  XL["to_excel/to_excel.ipynb"]
+  READY --> XL
+  CODEDEDU --> XL
+  CCREADY --> XL
+  CCCODED --> XL
+  XL --> WORKBOOK["data/Sector_Detail_Workbook.xlsx"]
+    </pre>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Notebook</th><th>Last touched</th><th>Status</th><th>Writes</th><th>Note</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="path">role_classification/RolesWithDescALL.ipynb</td>
+          <td class="date">2026-08-03</td>
+          <td><span class="chip orphan">root input missing</span></td>
+          <td>AllRoles_nioccs_ready.csv, _coded.csv</td>
+          <td>862 KB — cleaning, API coding, exploratory charts, and a 2023 rerun all in one file</td>
+        </tr>
+        <tr>
+          <td class="path">tag_education_requirements.ipynb</td>
+          <td class="date">2026-08-07</td>
+          <td><span class="chip active">active, dependent</span></td>
+          <td>AllRoles_nioccs_coded_with_education.csv</td>
+          <td>Must be re-run after any merge into <code class="mono">_coded.csv</code> — noted in its own comments</td>
+        </tr>
+        <tr>
+          <td class="path">cultural_corp_ingestion/culturalcorps.ipynb</td>
+          <td class="date">2026-08-06</td>
+          <td><span class="chip active">active</span></td>
+          <td>cc_step2_ready_for_nioccs.csv, cc_step3_coded.csv</td>
+          <td>Steps 1–3 of a stated 5-step plan, bundled into one notebook</td>
+        </tr>
+        <tr>
+          <td class="path">cultural_corp_ingestion/culturalcorpsmerge.ipynb</td>
+          <td class="date">2026-08-07</td>
+          <td><span class="chip active">active</span></td>
+          <td>Overwrites _ready.csv / _coded.csv in place</td>
+          <td>Step 4 — no Step 5 is visible anywhere in the repo</td>
+        </tr>
+        <tr>
+          <td class="path">public_data_fetch/public.ipynb</td>
+          <td class="date">2026-08-07</td>
+          <td><span class="chip legacy">mixed</span></td>
+          <td>qcew_nyc_sector_citywide.csv (keep); 4 comparison CSVs (superseded)</td>
+          <td>Its cells 2–5 are the exact 4 scripts <code class="mono">placements_analysis.ipynb</code>'s docstring says it consolidates</td>
+        </tr>
+        <tr>
+          <td class="path">placement_join/placements_analysis.ipynb</td>
+          <td class="date">2026-08-13</td>
+          <td><span class="chip active">canonical</span></td>
+          <td>Weighted coded files, 5 charts, 2 summary tables</td>
+          <td>Latest commit in the repo — the real current "ground truth" notebook</td>
+        </tr>
+        <tr>
+          <td class="path">placement_join/bruh.ipynb</td>
+          <td class="date">2026-08-13</td>
+          <td><span class="chip active">validation gate</span></td>
+          <td>console diagnostic only</td>
+          <td>Placeholder filename — rename before anyone but you opens this repo</td>
+        </tr>
+        <tr>
+          <td class="path">employernums.ipynb</td>
+          <td class="date">2026-08-11</td>
+          <td><span class="chip active">active, side analysis</span></td>
+          <td>console stats only</td>
+          <td>Repeat-employer / partner-loyalty numbers, standalone</td>
+        </tr>
+        <tr>
+          <td class="path">to_excel/to_excel.ipynb</td>
+          <td class="date">2026-08-06</td>
+          <td><span class="chip active">active</span></td>
+          <td>data/Sector_Detail_Workbook.xlsx</td>
+          <td>Stakeholder-facing detail workbook, core hubs + Cultural Corps combined</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2><span class="num">03</span>Cleanup punch list</h2>
+  <ol class="punchlist">
+    <li>
+      <span class="sev">P0 · privacy</span>
+      <b>Decide how to handle the committed PII</b> — see the flag above. Files can be moved
+      under <code class="mono">data/</code> going forward, but the two commits that already
+      contain them need a real decision (history rewrite vs. accepted exposure), not just a
+      future <code class="mono">.gitignore</code> entry.
+    </li>
+    <li>
+      <span class="sev">P1 · structural</span>
+      <b>Document or recreate <code class="mono">AllRoles_clean.csv</code></b> — nine notebooks
+      in the historical pipeline depend on it directly or indirectly, and none of them produce
+      it. Right now this repo can't rebuild its own most-used dataset from a clean checkout.
+    </li>
+    <li>
+      <span class="sev">P1 · structural</span>
+      <b>Extract the QCEW helpers into <code class="mono">tools/qcew.py</code></b> —
+      the ~25-line <code class="mono">QCEW_SECTOR_TITLES</code> dict and
+      <code class="mono">naics_to_qcew_sector()</code> are hand-copied across at least six
+      cells in three different notebooks. Constants like
+      <code class="mono">MAX_DESCRIPTION_CHARS</code> have already drifted between copies
+      (1200 → 2000 → 3000) — a shared module removes that risk going forward.
+    </li>
+    <li>
+      <span class="sev">P2 · consolidation</span>
+      <b>Trim <code class="mono">public_data_fetch/public.ipynb</code></b> to its cells 0–1
+      (the actual QCEW fetch). Cells 2–5 are dead weight — superseded by
+      <code class="mono">placements_analysis.ipynb</code> per that notebook's own docstring.
+    </li>
+    <li>
+      <span class="sev">P2 · consolidation</span>
+      <b>Fold <code class="mono">validate_application_data.ipynb</code> into
+      <code class="mono">ccl26_matchoutcomes.ipynb</code></b> — the scoping/dedup logic is
+      duplicated between them; keep one.
+    </li>
+    <li>
+      <span class="sev">P2 · consolidation</span>
+      <b>Confirm whether <code class="mono">quantumqueryMN.ipynb</code> is still needed</b> —
+      its only input no longer exists in <code class="mono">data/</code>. If its "Program at a
+      Glance" numbers are already superseded by <code class="mono">ccl26_matchoutcomes.ipynb</code>,
+      archive it.
+    </li>
+    <li>
+      <span class="sev">P3 · naming</span>
+      <b>Rename <code class="mono">ccl25_match_outcomes.ipynb</code></b> to reflect that it's
+      Spring Forward 2026, not a 2025 cycle — e.g. <code class="mono">sf26_match_outcomes.ipynb</code>.
+    </li>
+    <li>
+      <span class="sev">P3 · naming</span>
+      <b>Rename <code class="mono">placement_join/bruh.ipynb</code></b> to something that
+      describes what it does — it's the hub-composition sanity check that gates naming a
+      deck Finding after a QCEW sector.
+    </li>
+    <li>
+      <span class="sev">P3 · hygiene</span>
+      <b>Reconcile the Cultural Corps "Step N of 5" numbering</b> — Steps 1–3 live in
+      <code class="mono">culturalcorps.ipynb</code>, Step 4 in
+      <code class="mono">culturalcorpsmerge.ipynb</code>, and no Step 5 exists anywhere.
+    </li>
+    <li>
+      <span class="sev">P3 · hygiene</span>
+      <b>Give the <code class="mono">*_BACKUP_before_*.csv</code> files a home</b> — every
+      merge/weight script writes one before mutating a shared pipeline file. Good instinct,
+      but nothing prunes them; a <code class="mono">data/_backups/</code> convention would
+      keep them from accumulating silently.
+    </li>
+  </ol>
+
+  <footer>
+    Generated 2026-08-14 from the working tree at commit <code class="mono">22d76a4</code>.
+    <code class="mono">data/</code> is gitignored — file presence/absence reflects this local
+    checkout only and may differ on another machine.
+  </footer>
+
+</div>
